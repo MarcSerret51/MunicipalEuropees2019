@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Municipals 2019</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/chart.js/dist/Chart.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="taula-tab" data-toggle="tab" href="#taula" role="tab" aria-controls="taula"
+                aria-selected="true" onclick="killChart();">Taula</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="graphics-tab" data-toggle="tab" href="#graphics" role="tab" aria-controls="graphics"
+                aria-selected="false">Gràfic</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="taula" role="tabpanel" aria-labelledby="taula-tab">
+            <div class="container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Logo</th>
+                            <th>Nom</th>
+                            <th>Vots</th>
+                            <th>+1</th>
+                            <th>-1</th>
+                            <th>+100</th>
+                            <th>-100</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+    
+                    </tbody>
+                </table>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modalCens">Establir cens</button>
+                <button class='btn btn-primary manual' data-toggle="modal" data-target="#votManualModal">Manual</button>
+                <button data-toggle="modal" data-target="#modalCookie" class="btn btn-danger">Eliminar cookie</button>
+                <p>Votants: <i id="votants"></i></p>
+                <p>Cens: <i id="cens"></i></p>
+                <p>Percentatge de vot: <i id="percentatge"></i>%</p>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="graphics" role="tabpanel" aria-labelledby="graphics-tab">
+            <div class="container">
+                <div class="row">
+                    <div style="width: 750px; height: 750px;">
+                        <canvas id="chart" width="100" height="100"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCens" tabindex="-1" role="dialog" aria-labelledby="modalCensTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCensTitle">Establir cens</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="censInput" class="col-2 col-form-label">Cens: </label>
+                        <div class="col-10">
+                            <input class="form-control" type="number" value="" id="censInput">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarCens()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCookie" tabindex="-1" role="dialog" aria-labelledby="modalCookieTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCookieTitle">Totes les dades s'eliminaran</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <button class="btn btn-danger" onclick='deleteCookie()'>Eliminar</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="votManualModal" tabindex="-1" role="dialog" aria-labelledby="modalVotTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalVotTitle">Vots manuals</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="votsInput" class="col-2 col-form-label">Vots: </label>
+                        <div class="col-10">
+                            <input class="form-control" type="number" value="" id="votsInput">
+                        </div>
+                        <label for="selectPartits" class="col-2 col-form-label">Partit: </label>
+                        <div class="col-10">
+                            <select class="form-control" id="selectPartits">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button>
+                    <button type="button" class="btn btn-primary" onclick="getValueFromManual()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="node_modules/js-cookie/src/js.cookie.js"></script>
+    <script src="node_modules/chart.js/dist/Chart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
