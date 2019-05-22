@@ -41,9 +41,17 @@
     
                     </tbody>
                 </table>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#modalCens">Establir cens</button>
-                <button class='btn btn-primary manual' data-toggle="modal" data-target="#votManualModal">Manual</button>
-                <button data-toggle="modal" data-target="#modalCookie" class="btn btn-danger">Eliminar cookie</button>
+                <div class="row">
+                    <div class="col-sm text-center" >
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCens">Establir cens</button>
+                        </div>
+                          <div class="col-sm text-center">
+                                <button class='btn btn-primary manual' data-toggle="modal" data-target="#votManualModal">Manual</button>
+                            </div>
+                          <div class="col-sm text-center">
+                                <button data-toggle="modal" data-target="#modalCookie" class="btn btn-danger">Eliminar cookie</button>
+                            </div>
+                </div>
                 <p>Votants: <i id="votants"></i></p>
                 <p>Cens: <i id="cens"></i></p>
                 <p>Percentatge de vot: <i id="percentatge"></i>%</p>
@@ -99,8 +107,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group row">
-                        <button class="btn btn-danger" onclick='deleteCookie()'>Eliminar</button>
+                    <div class="row">
+                            <div class="col text-center">
+                                <button class="btn btn-danger" onclick='deleteCookie()'>Eliminar</button>
+                            </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -123,7 +133,7 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <label for="votsInput" class="col-2 col-form-label">Vots: </label>
-                        <div class="col-10">
+                        <div class="col-10"  style="margin-bottom: 20px;">
                             <input class="form-control" type="number" value="" id="votsInput">
                         </div>
                         <label for="selectPartits" class="col-2 col-form-label">Partit: </label>

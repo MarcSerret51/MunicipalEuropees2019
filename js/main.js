@@ -105,16 +105,12 @@ function mountTable(chart) {
     tBody.innerHTML = tableBody;
 }
 
-function clickBTN(votesTo, name) {
-    console.log(name);
-    
+function clickBTN(votesTo, name) {    
     manageVotes(name, votesTo);
 }
 
 function manageVotes(name, votesTo) {
-    for (let partit of partits) {
-        console.log(name, partit.name);
-        
+    for (let partit of partits) {        
         if (partit.name == name && partit.votes + votesTo >= 0) {
             partit.votes = partit.votes + votesTo;
             mountTable();
@@ -134,6 +130,7 @@ function saveToCookie() {
 function getFromCookie() {
     try {
         let partits = Cookies.get('partits');
+        
         return JSON.parse(partits);
     } catch (error) {
         return false;
@@ -141,7 +138,6 @@ function getFromCookie() {
 }
 
 function saveCensToCookie() {
-    console.log(cens);
     
     Cookies.set('cens', cens);
 }
@@ -155,7 +151,6 @@ function getCensFromCookie() {
         document.getElementById('cens').innerHTML = cens;
         return cens;
     } catch (error) {
-        console.log(rofl);
         
         return null;
     }
@@ -167,14 +162,8 @@ function deleteCookie() {
     location.reload();
 }
 
-function killChart() {
-    console.log("kill");
-    
-    // myChart.destroy();
-}
 
 function createChart() {
-    console.log(partits);
         myChart = new Chart('chart', {
         type: 'pie',
         data: {
@@ -194,6 +183,7 @@ function guardarCens() {
     cens = document.getElementById("censInput").value;
     document.getElementById("percentatge").innerHTML = updatePercentatge();
     document.getElementById("cens").innerHTML = cens;
+    $('#modalCens').modal('hide')
     saveCensToCookie();
 }
 
@@ -216,6 +206,7 @@ function mountSelect() {
 function getValueFromManual() {
     let votsManual = document.getElementById("votsInput").value;
     let selectManual = document.getElementById("selectPartits").value;
+    $('#votManualModal').modal('hide')
     manageVotes(selectManual, Number(votsManual));
     
 }
