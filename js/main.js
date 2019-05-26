@@ -13,6 +13,22 @@ let partits = [
         color: "rgba(219,8,21,0.7)",
         bgColor: "rgba(219,8,21,1)"
     },
+{
+        name: "Nul",
+        votes: 0,
+        logo: "img/psc.svg",
+        color: "rgba(219,8,21,0.7)",
+        bgColor: "rgba(219,8,21,1)"
+    },
+
+{
+        name: "blanc",
+        votes: 0,
+        logo: "img/psc.svg",
+        color: "rgba(219,8,21,0.7)",
+        bgColor: "rgba(219,8,21,1)"
+    },
+
     {
         name: "ADA",
         votes: 0,
